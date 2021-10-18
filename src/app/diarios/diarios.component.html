@@ -1,1 +1,57 @@
-<p>diarios works!</p>
+<section class="container my-5">
+    <button class="btn btn-primary" (click)="openAddDiarioModal()">
+      + Adicionar diário
+    </button>
+    <hr />
+    <div *ngIf="diarios$ | async as user; else spinner"></div>
+    <div
+      class="text-center text-muted my-5"
+      *ngIf="(diarios$ | async)?.length === 0"
+    >
+      Sem diários.
+    </div>
+    <div class="row" *ngIf="diarios$ | async">
+      <div class="col col-lg-4 my-1" *ngFor="let diary of diarios$ | async">
+        <div class="card" style="width: 18rem">
+          <img
+            [src]="diary.image"
+            class="card-img-top"
+            alt="..."
+            height="256px"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ diary.title }}</h5>
+            <p class="card-text">
+              {{ diary.diary }}
+            </p>
+            <small> Criado por {{ diary.author }} em {{ diary.local }} </small>
+            <div>
+              <button
+                class="card-link btn btn-link btn-sm"
+                (click)="openUpdateDiarioModal(diary)"
+              >
+                Editar
+              </button>
+              <button
+                (click)="deleteDiary(diary)"
+                class="card-link btn btn-link btn-sm"
+              >
+                Apagar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <ng-template #spinner>
+    <div class="d-flex align-items-center">
+      <strong>Carregando...</strong>
+      <div
+        class="spinner-border ml-auto text-primary"
+        role="status"
+        aria-hidden="true"
+      ></div>
+    </div>
+  </ng-template>

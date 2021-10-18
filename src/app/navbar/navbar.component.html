@@ -1,1 +1,63 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/">DiarioApp</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggle()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div
+      [ngbCollapse]="isMenuCollapsed"
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" [class.active]="currentRoute === '/'">
+          <a class="nav-link" routerLink="/" (click)="close()">Home</a>
+        </li>
+        <li class="nav-item" [class.active]="currentRoute === '/diarios'">
+          <a class="nav-link" routerLink="/diarios" (click)="close()">Diários</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto" *ngIf="user$ | async as user; else unlogged">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="."
+            (click)="logout()"
+            >Sair</a
+          >
+        </li>
+      </ul>
+  
+      <ng-template #unlogged>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/login"
+              [class.active]="currentRoute === '/login'"
+              (click)="close()"
+              >Login</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/signup"
+              [class.active]="currentRoute === '/signup'"
+              (click)="close()"
+              >Cadastre-se</a
+            >
+          </li>
+        </ul>
+      </ng-template>
+    </div>
+  </nav>

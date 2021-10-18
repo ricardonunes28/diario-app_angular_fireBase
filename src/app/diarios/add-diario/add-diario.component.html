@@ -1,1 +1,73 @@
-<p>add-diario works!</p>
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Adicionar diário</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.dismiss()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #addDiarioForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="inputTitle1">Título</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputTitle1"
+          name="title"
+          placeholder="Ex: Uma aventura na praia!"
+          [(ngModel)]="diary.title"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="inputDiario1">Diário</label>
+        <textarea
+          class="form-control"
+          id="inputDiario1"
+          rows="3"
+          name="diary"
+          placeholder="Ex: Foi muito bom!"
+          [(ngModel)]="diary.diary"
+          required
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="inputLocal1">Local</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputLocal1"
+          name="local"
+          placeholder="Ex: Fortaleza"
+          [(ngModel)]="diary.local"
+          required
+        />
+      </div>
+      <div class="custom-file">
+        <input
+          #inputImage
+          type="file"
+          class="custom-file-input"
+          id="customFile"
+          name="image"
+          accept=".png,.jpg"
+          (change)="changeImage(inputImage.files)"
+          required
+        />
+        <label class="custom-file-label" for="customFile">Escolher foto</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!addDiarioForm.form.valid || image === null"
+      >
+        Adicionar
+      </button>
+    </div>
+  </form>

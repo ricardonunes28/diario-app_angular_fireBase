@@ -1,1 +1,63 @@
-<p>singup works!</p>
+<section class="container my-5">
+    <h3>Cadastro</h3>
+    <div *ngIf="signupError">
+      <ngb-alert type="danger" [dismissible]="false">{{ signupError }}</ngb-alert>
+    </div>
+    <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="inputNome1">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputNome1"
+          name="fullname"
+          placeholder="Seu nome completo"
+          [(ngModel)]="data.fullname"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="dataNasc1">Data de nascimento</label>
+        <input
+          type="date"
+          class="form-control"
+          id="dataNasc1"
+          name="birthdate"
+          [(ngModel)]="data.birthdate"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="inputEmail2" autoComplete="off">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="inputEmail2"
+          placeholder="Seu email"
+          name="email"
+          [(ngModel)]="data.email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="inputPassword2">Senha</label>
+        <input
+          type="password"
+          class="form-control"
+          id="inputPassword2"
+          placeholder="Sua senha"
+          minlength="8"
+          name="password"
+          [(ngModel)]="data.password"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!signupForm.form.valid"
+      >
+        Cadastre-se
+      </button>
+    </form>
+  </section>

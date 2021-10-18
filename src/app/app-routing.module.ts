@@ -5,6 +5,16 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
 import { DiariosComponent } from './diarios/diarios.component';
+import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
+import {
+  hasCustomClaim,
+  redirectUnauthorizedTo,
+  redirectLoggedInTo,
+} from '@angular/fire/compat/auth-guard';
+import { canActivate } from '@angular/fire/compat/auth-guard';
+
+const redirectLoggedInToDiarios = () => redirectLoggedInTo(['diarios']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const routes: Route[] = [
   {
@@ -13,15 +23,18 @@ const routes: Route[] = [
   },
   {
     path: 'login', 
-    component: LoginComponent
+    component: LoginComponent,
+    ...canActivate(redirectLoggedInToDiarios),
   },
   {
-    path: 'singup',
-    component: SingupComponent
+    path: 'signup',
+    component: SingupComponent,
+    ...canActivate(redirectLoggedInToDiarios),
   },
   {
     path: 'diarios',
-    component: DiariosComponent
+    component: DiariosComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
   },
 ]
 
