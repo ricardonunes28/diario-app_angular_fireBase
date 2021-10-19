@@ -1,1 +1,47 @@
-<p>home works!</p>
+<div class="jumbotron jumbotron-fluid bg-dark text-light">
+    <div class="container">
+      <h1 class="display-4">Compartilhe seus melhores momentos aqui!</h1>
+      <p class="lead">
+        Seu diário de viagens com compartilhamento de fotos e alegrias!
+      </p>
+      <hr class="my-4" />
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" routerLink="diarios" role="button"
+          >Meus diários</a
+        >
+      </p>
+    </div>
+  </div>
+  <section class="container my-2">
+    <h3>Confira todos os diários</h3>
+    <div *ngIf="allDiaries$ | async as user; else spinner"></div>
+    <div class="row">
+      <div
+        class="col col-lg-4 my-1"
+        *ngFor="let diary of allDiaries$ | async"
+      >
+        <div class="card" style="width: 18rem">
+          <img
+            [src]="diary.image"
+            class="card-img-top"
+            alt="..."
+            height="256px"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ diary.title }}</h5>
+            <p class="card-text">
+              {{ diary.diary }}
+            </p>
+            <small> Criado por {{ diary.author }} em {{ diary.local }} </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <ng-template #spinner>
+    <div class="d-flex align-items-center">
+      <strong>Carregando...</strong>
+      <div class="spinner-border ml-auto text-primary" role="status" aria-hidden="true"></div>
+    </div>
+  </ng-template>

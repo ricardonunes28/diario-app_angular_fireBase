@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Diary } from '../interfaces/diary';
+import { DiariosService } from '../services/diarios.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+allDiaries$: Observable<Diary[]>
+allDiaries: Diary[] = [];
 
-  constructor() { }
+  constructor(private diarioServices: DiariosService) { }
+
+
 
   ngOnInit(): void {
+    this.allDiaries$ = this.diarioServices.getAllDiares();
   }
 
 }
